@@ -43,6 +43,7 @@ const state = initialState(stored);
 const random = mulberry32(Date.now());
 const keys = new Set<string>();
 let mouseTurn = 0, last = performance.now(), previousShots = 0, previousLives = state.lives, previousWave = 0;
+const heardImpacts = new Set<number>();
 
 const $ = (id: string) => document.getElementById(id)!;
 const overlay = $('message'), start = $('start') as HTMLButtonElement;
@@ -51,6 +52,7 @@ function begin() {
   if (state.phase === 'gameover') {
     const fresh = initialState(state.highScore);
     Object.assign(state, fresh);
+    heardImpacts.clear();
   }
   state.phase = 'playing';
   if (!state.enemies.length) spawnWave(state, random);
@@ -131,7 +133,16 @@ function loop(now: number) {
   const forward = Number(keys.has('KeyW') || keys.has('ArrowUp')) - Number(keys.has('KeyS') || keys.has('ArrowDown'));
   const turn = Math.max(-1, Math.min(1, turnKeys + mouseTurn)); mouseTurn *= .45;
   step(state, { forward, turn, fire: keys.has('Space') || keys.has('MouseFire') }, dt, random);
+  sound.movement(Math.max(Math.abs(forward), Math.abs(turn)), state.phase === 'playing', now);
   if (state.shots.length > previousShots && state.shots.some(s => s.owner === 'player')) sound.shoot();
+  for (const impact of state.impacts) {
+    if (heardImpacts.has(impact.id)) continue;
+    heardImpacts.add(impact.id);
+    sound.enemyImpact(impact.destroyed);
+  }
+  for (const id of heardImpacts) {
+    if (!state.impacts.some(impact => impact.id === id)) heardImpacts.delete(id);
+  }
   if (state.lives < previousLives) sound.hit();
   if (state.wave > previousWave && previousWave > 0) sound.wave();
   previousShots = state.shots.length; previousLives = state.lives; previousWave = state.wave;

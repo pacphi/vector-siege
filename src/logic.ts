@@ -17,7 +17,7 @@ export function initialState(highScore = 0): GameState {
   return {
     phase: 'title', score: 0, highScore, lives: 3, wave: 0,
     player: { position: { x: 0, z: 0 }, heading: 0, cooldown: 0, invulnerable: 0 },
-    enemies: [], shots: []
+    enemies: [], shots: [], impacts: []
   };
 }
 
@@ -32,10 +32,12 @@ function enemy(kind: EnemyKind, angle: number, radius: number): Enemy {
 export function spawnWave(state: GameState, random: () => number): void {
   state.wave++;
   const count = Math.min(3 + state.wave, 10);
+  const minimumRadius = state.wave === 1 ? 58 : 48;
+  const radiusRange = state.wave === 1 ? 10 : 19;
   for (let i = 0; i < count; i++) {
     const roll = random();
     const kind: EnemyKind = state.wave > 3 && roll > .75 ? 'drone' : state.wave > 1 && roll > .48 ? 'fast' : 'tank';
-    state.enemies.push(enemy(kind, random() * Math.PI * 2, 42 + random() * 25));
+    state.enemies.push(enemy(kind, random() * Math.PI * 2, minimumRadius + random() * radiusRange));
   }
   if (state.wave % 2 === 0) state.enemies.push(enemy('saucer', random() * Math.PI * 2, 58));
 }
@@ -50,8 +52,10 @@ const clampArena = (p: Vec2) => {
 };
 
 export function step(state: GameState, input: InputFrame, dt: number, random: () => number): void {
-  if (state.phase !== 'playing') return;
   dt = Math.min(dt, .05);
+  for (const impact of state.impacts) impact.ttl -= dt;
+  state.impacts = state.impacts.filter(impact => impact.ttl > 0);
+  if (state.phase !== 'playing') return;
   const p = state.player;
   p.heading += input.turn * 1.8 * dt;
   p.position.x += Math.sin(p.heading) * input.forward * PLAYER_SPEED * dt;
@@ -91,6 +95,13 @@ export function step(state: GameState, input: InputFrame, dt: number, random: ()
       for (const e of state.enemies) {
         if (e.hp <= 0 || distance(s.position, e.position) >= (e.kind === 'saucer' ? 3 : 2.2)) continue;
         e.hp--; s.ttl = 0;
+        state.impacts.push({
+          id: nextId++,
+          position: { ...e.position },
+          kind: e.kind,
+          destroyed: e.hp <= 0,
+          ttl: e.hp <= 0 ? 1.15 : .7,
+        });
         if (e.hp <= 0) state.score += e.kind === 'saucer' ? 500 : e.kind === 'drone' ? 250 : e.kind === 'fast' ? 150 : 100;
         break;
       }

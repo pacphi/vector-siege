@@ -19,6 +19,14 @@ export interface Shot {
   ttl: number;
 }
 
+export interface Impact {
+  id: number;
+  position: Vec2;
+  kind: EnemyKind;
+  destroyed: boolean;
+  ttl: number;
+}
+
 export interface GameState {
   phase: Phase;
   score: number;
@@ -28,6 +36,7 @@ export interface GameState {
   player: { position: Vec2; heading: number; cooldown: number; invulnerable: number };
   enemies: Enemy[];
   shots: Shot[];
+  impacts: Impact[];
 }
 
 export interface InputFrame {
