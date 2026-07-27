@@ -1,5 +1,9 @@
 # Vector Siege
 
+[![CI](https://github.com/pacphi/vector-siege/actions/workflows/ci.yml/badge.svg)](https://github.com/pacphi/vector-siege/actions/workflows/ci.yml)
+
+![Vector Siege gameplay showing the first wave, cockpit HUD, radar, and vector battlefield](docs/images/vector-siege-gameplay.png)
+
 Vector Siege is an original, browser-playable polygonal tank combat game inspired by the immediacy and visual economy of early vector arcades. Scan the radar, use geometric cover, and survive increasingly dangerous waves of tanks, scouts, drones, and bonus saucers.
 
 This project is an independent homage. It uses no original game code, names, artwork, audio, or other assets and is not affiliated with Atari, Rebellion, or Sony.
