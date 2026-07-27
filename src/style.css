@@ -1,0 +1,33 @@
+:root { color-scheme: dark; font-family: "Courier New", monospace; background: #010705; color: #75ffa3; }
+* { box-sizing: border-box; }
+body { margin: 0; overflow: hidden; background: #010705; }
+button { font: inherit; }
+#app, .game { width: 100vw; height: 100dvh; }
+.game { position: relative; background: #010705; }
+#game-canvas { width: 100%; height: 100%; display: block; cursor: crosshair; }
+.scanlines { position: absolute; inset: 0; pointer-events: none; opacity: .15; background: repeating-linear-gradient(0deg, transparent 0 3px, #5dff9a 4px); }
+.hud { position: absolute; inset: 0; pointer-events: none; padding: clamp(10px, 2vw, 24px); text-shadow: 0 0 8px #3cff7e; font-weight: bold; letter-spacing: .08em; }
+.stats { display: flex; gap: clamp(12px, 3vw, 40px); flex-wrap: wrap; }
+.stats span { color: white; }
+.reticle { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; translate: -50% -50%; border: 2px solid #65ff9b; border-radius: 50%; }
+.reticle::before, .reticle::after { content: ""; position: absolute; background: #65ff9b; }
+.reticle::before { width: 46px; height: 2px; left: -8px; top: 14px; }
+.reticle::after { width: 2px; height: 46px; left: 14px; top: -8px; }
+.cockpit { position: absolute; left: 50%; bottom: -3px; translate: -50%; width: min(72vw, 760px); height: 17vh; border: 3px solid #32754b; background: linear-gradient(155deg, #07120d 10%, #020806 55%); clip-path: polygon(0 100%, 12% 23%, 38% 0, 62% 0, 88% 23%, 100% 100%); opacity: .96; }
+.cockpit b { position: absolute; width: 18px; height: 78%; background: #15251c; border: 2px solid #65ff9b; left: calc(50% - 9px); top: -48%; }
+.cockpit i { position: absolute; width: 22%; height: 42%; border: 2px solid #214c31; bottom: 12%; left: 13%; transform: skewX(-15deg); }
+.cockpit i:last-child { left: auto; right: 13%; transform: skewX(15deg); }
+#radar { position: absolute; right: clamp(10px, 2vw, 24px); top: clamp(48px, 8vw, 78px); width: min(23vw, 170px); aspect-ratio: 1; border: 2px solid #65ff9b; border-radius: 50%; background: #03130da8; }
+.message { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 24px; background: #010705aa; pointer-events: auto; }
+.message[hidden] { display: none; }
+.panel { max-width: 640px; border: 2px solid #65ff9b; padding: clamp(22px, 5vw, 46px); background: #020b08e8; box-shadow: 0 0 35px #27c96b55, inset 0 0 35px #27c96b22; }
+h1 { font-size: clamp(2.4rem, 8vw, 6rem); line-height: .85; margin: 0 0 22px; letter-spacing: -.08em; }
+.tagline { color: #fff; }
+.help { line-height: 1.7; color: #acebc0; font-size: .9rem; }
+.primary, .icon-btn { pointer-events: auto; color: #031008; background: #65ff9b; border: 0; padding: 12px 22px; font-weight: bold; cursor: pointer; }
+.primary:hover, .primary:focus-visible { background: white; outline: 3px solid #65ff9b; outline-offset: 3px; }
+.actions { position: absolute; pointer-events: auto; right: 18px; bottom: 18px; display: flex; gap: 8px; }
+.icon-btn { padding: 8px 11px; background: #082418cc; color: #75ffa3; border: 1px solid #65ff9b; }
+.status { position: absolute; left: 18px; bottom: 18px; font-size: .78rem; color: #a7dcb8; }
+@media (max-width: 600px) { .stats { font-size: .75rem; } .status { display: none; } #radar { top: 76px; } }
+@media (prefers-reduced-motion: reduce) { .scanlines { display: none; } }

@@ -1,0 +1,24 @@
+{
+  "initialized": true,
+  "topology": "hierarchical",
+  "workers": [
+    "battlezone-1785119261573-9xco",
+    "battlezone-1785119261573-ujpv",
+    "battlezone-1785119261573-8214",
+    "battlezone-1785119261573-ar4r",
+    "battlezone-1785119261573-nrki"
+  ],
+  "consensus": {
+    "pending": [],
+    "history": []
+  },
+  "sharedMemory": {},
+  "createdAt": "2026-07-27T02:27:32.807Z",
+  "updatedAt": "2026-07-27T02:27:41.573Z",
+  "consensusStrategy": "byzantine",
+  "queen": {
+    "agentId": "battlezone-queen",
+    "electedAt": "2026-07-27T02:27:32.807Z",
+    "term": 1
+  }
+}

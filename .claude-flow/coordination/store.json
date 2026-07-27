@@ -1,0 +1,38 @@
+{
+  "topology": {
+    "type": "hierarchical",
+    "maxNodes": 15,
+    "redundancy": 2,
+    "consensusAlgorithm": "raft"
+  },
+  "loadBalance": {
+    "algorithm": "adaptive",
+    "weights": {},
+    "healthCheck": true
+  },
+  "sync": {
+    "lastSync": "2026-07-27T02:28:08.188Z",
+    "syncCount": 0,
+    "conflicts": 0,
+    "pendingChanges": 0
+  },
+  "nodes": {},
+  "version": "3.0.0",
+  "orchestrations": [
+    {
+      "id": "orch-1785119288188",
+      "task": "Collaboratively design and build a browser-playable original polygonal first-person tank game inspired by 1980 vector arcade mechanics and modern cockpit polish. Roles in order: architecture, game/UX design, TypeScript/Three.js implementation, automated testing/QA, documentation/DevOps review. Repository: /Users/cphillipson/Development/active/ai/battlezone (empty). Requirements: keyboard and mouse, responsive accessible UI, radar, lives, score/high score, waves with standard/fast tanks/homing drones/bonus saucers, cover objects, synthesized audio, pause/mute/fullscreen, deterministic testable logic, Vite+TypeScript+Three.js+Vitest+Playwright, GitHub Actions, Docker/Nginx, maintainer and casual gamer markdown docs, no copyrighted assets or brand affiliation. Produce concrete recommendations and/or workspace changes appropriate to your role, coordinate via the hive shared state, and report verifiable results.",
+      "strategy": "parallel",
+      "agents": [
+        "battlezone-1785119261573-9xco",
+        "battlezone-1785119261573-ujpv",
+        "battlezone-1785119261573-8214",
+        "battlezone-1785119261573-ar4r",
+        "battlezone-1785119261573-nrki"
+      ],
+      "status": "scheduled",
+      "scheduledAt": "2026-07-27T02:28:08.188Z",
+      "topology": "hierarchical"
+    }
+  ]
+}
