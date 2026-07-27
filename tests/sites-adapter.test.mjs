@@ -1,9 +1,16 @@
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
+import { access } from 'node:fs/promises';
 import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
 await execFileAsync('node', ['scripts/package-sites.mjs']);
+await access('dist/assets/index.html');
+const packagedAssets = await import('node:fs/promises').then(({ readdir }) =>
+  readdir('dist/assets/assets'),
+);
+assert.ok(packagedAssets.some((name) => name.endsWith('.js')));
+assert.ok(packagedAssets.some((name) => name.endsWith('.css')));
 
 const worker = (await import(`../dist/server/index.js?test=${Date.now()}`)).default;
 const requestedPaths = [];

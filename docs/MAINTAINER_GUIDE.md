@@ -28,6 +28,7 @@ npm run check
 - `tests/e2e/`: browser smoke tests
 - `.github/workflows/ci.yml`: CI pipeline
 - `Dockerfile`, `nginx.conf`: production container
+- `docs/DEPLOYMENT.md`: ChatGPT Sites and local deployment runbook
 
 ## Design rules
 
@@ -54,3 +55,7 @@ Then serve `dist/` once and inspect the title, active play, pause, hit/game-over
 The app needs no runtime secrets or environment variables. CI builds the static bundle and uploads it as an artifact. The container stage runs unprivileged Nginx and includes an HTTP health check. Deploy immutable image tags and retain the prior tag for rollback.
 
 Cache fingerprinted `/assets/` files for one year; keep `index.html` uncached so releases are discovered immediately. The included Nginx policy does both and adds baseline security headers.
+
+See the [Deployment and Interaction Guide](DEPLOYMENT.md) for the complete
+ChatGPT Sites publish sequence, authenticated smoke checks, local Vite use,
+Docker use, and player interaction instructions.

@@ -25,6 +25,7 @@ npm run preview
 
 - [Player guide](docs/PLAYER_GUIDE.md)
 - [Maintainer guide](docs/MAINTAINER_GUIDE.md)
+- [Deployment and interaction guide](docs/DEPLOYMENT.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Research and design context](docs/RESEARCH.md)
 

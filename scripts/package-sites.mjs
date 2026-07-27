@@ -1,7 +1,15 @@
-import { cp, mkdir, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readdir, writeFile } from 'node:fs/promises';
 
 await mkdir('dist/server', { recursive: true });
 await mkdir('dist/.openai', { recursive: true });
+await mkdir('dist/assets/assets', { recursive: true });
+
+for (const entry of await readdir('dist/assets', { withFileTypes: true })) {
+  if (entry.isFile()) {
+    await cp(`dist/assets/${entry.name}`, `dist/assets/assets/${entry.name}`);
+  }
+}
+await cp('dist/index.html', 'dist/assets/index.html');
 
 await writeFile(
   'dist/server/index.js',
